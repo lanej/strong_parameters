@@ -27,6 +27,8 @@ module ActionController
     end
   end
 
+  class AnyParam; end
+
   class Parameters < ActiveSupport::HashWithIndifferentAccess
     attr_accessor :permitted
     alias :permitted? :permitted
@@ -190,6 +192,11 @@ module ActionController
         # Slicing filters out non-declared keys.
         slice(*filter.keys).each do |key, value|
           next unless value
+
+          if filter[key] == ActionController::AnyParam
+            params[key] = value
+            return
+          end
 
           if filter[key] == []
             # Declaration {:comment_ids => []}.
