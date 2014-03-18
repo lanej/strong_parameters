@@ -1,3 +1,3 @@
 module StrongParameters
-  VERSION = "0.2.3.lanej1"
+  VERSION = "0.2.3.lanej2"
 end
