@@ -364,6 +364,17 @@ class NestedParametersTest < ActiveSupport::TestCase
     assert_equal initial_hash.with_indifferent_access, permitted
   end
 
+  test 'any param with a nil value' do
+    initial_hash = {
+      :book => nil
+    }
+
+    params = ActionController::Parameters.new(initial_hash)
+
+    permitted = params.permit({ :book => ActionController::AnyParam })
+    assert_equal initial_hash.with_indifferent_access, permitted
+  end
+
   test 'any param permitted in a nested hash' do
     initial_hash = {
       :book => {
